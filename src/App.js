@@ -10,8 +10,9 @@ import "./App.css";
 import { Romans } from "./config/Troops";
 
 const TrainingLength = [
-  0, 1, 0.9, 0.81, 0.73, 0.66, 0.59, 0.53, 0.48, 0.43, 0.39, 0.35, 0.31, 0.28,
-  0.25, 0.23, 0.21, 0.19, 0.17, 0.15, 0.14,
+  0, 1, 0.9, 0.81, 0.72875, 0.65625, 0.590625, 0.53125, 0.478125, 0.430625,
+  0.3875, 0.34875, 0.31375, 0.2825, 0.254375, 0.22875, 0.205625, 0.185,
+  0.166875, 0.15, 0.135,
 ];
 
 function App() {
@@ -93,8 +94,10 @@ function App() {
       </Grid>
       <Grid item xs={2}>
         <Typography variant="body1">
-          {TrainingLength[buildingLevel] *
-            (selectedValueState?.training_duration ?? 0)}
+          {Math.ceil(
+            TrainingLength[buildingLevel] *
+              (selectedValueState?.training_duration ?? 0)
+          )}
         </Typography>
       </Grid>
     </>
