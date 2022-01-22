@@ -1,3 +1,14 @@
+import battering_ram from "../img/romans/battering_ram.png";
+import equites_caesaris from "../img/romans/equites_caesaris.png";
+import equites_imperatoris from "../img/romans/equites_imperatoris.png";
+import equites_legati from "../img/romans/equites_legati.png";
+import fire_catapult from "../img/romans/fire_catapult.png";
+import imperian from "../img/romans/imperian.png";
+import legionnaire from "../img/romans/legionnaire.png";
+import pretorian from "../img/romans/pretorian.png";
+import senator from "../img/romans/senator.png";
+import settler from "../img/romans/settler.png";
+
 export const Romans = [
   {
     name: "Legionnaire",
@@ -18,6 +29,7 @@ export const Romans = [
     upkeep: 1,
     training_duration: 1600,
     building: "barracks",
+    img: legionnaire,
   },
   {
     name: "Pretorian",
@@ -38,6 +50,7 @@ export const Romans = [
     upkeep: 1,
     training_duration: 1760,
     building: "barracks",
+    img: pretorian,
   },
   {
     name: "Imperian",
@@ -58,6 +71,7 @@ export const Romans = [
     upkeep: 1,
     training_duration: 1920,
     building: "barracks",
+    img: imperian,
   },
   {
     name: "Equites Legati",
@@ -78,6 +92,7 @@ export const Romans = [
     upkeep: 2,
     training_duration: 1360,
     building: "stables",
+    img: equites_legati,
   },
   {
     name: "Equites Imperatoris",
@@ -98,6 +113,7 @@ export const Romans = [
     upkeep: 3,
     training_duration: 2640,
     building: "stables",
+    img: equites_imperatoris,
   },
   {
     name: "Equites Caesaris",
@@ -118,6 +134,7 @@ export const Romans = [
     upkeep: 4,
     training_duration: 3520,
     building: "stables",
+    img: equites_caesaris,
   },
   {
     name: "Battering Ram",
@@ -138,6 +155,7 @@ export const Romans = [
     upkeep: 3,
     training_duration: 4600,
     building: "workshop",
+    img: battering_ram,
   },
   {
     name: "Fire Catapult",
@@ -158,6 +176,7 @@ export const Romans = [
     upkeep: 6,
     training_duration: 9000,
     building: "workshop",
+    img: fire_catapult,
   },
   {
     name: "Senator",
@@ -178,6 +197,7 @@ export const Romans = [
     upkeep: 5,
     training_duration: 90700,
     building: "residence",
+    img: senator,
   },
   {
     name: "Settler",
@@ -198,5 +218,6 @@ export const Romans = [
     upkeep: 1,
     training_duration: 26900,
     building: "residence",
+    img: settler,
   },
 ];
