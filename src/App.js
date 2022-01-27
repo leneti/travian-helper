@@ -10,6 +10,8 @@ import {
   Button,
 } from "@mui/material";
 import { Calculate } from "@mui/icons-material";
+import { useTheme } from "@mui/material/styles";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 import "./App.css";
 import { Romans } from "./config/Troops";
@@ -17,6 +19,7 @@ import wood from "./img/resources/lumber_tiny.png";
 import clay from "./img/resources/clay_tiny.png";
 import iron from "./img/resources/iron_tiny.png";
 import crop from "./img/resources/crop_small.png";
+import clock from "./img/resources/clock.png";
 
 const TrainingLength = [
   0, 1, 0.9, 0.81, 0.72875, 0.65625, 0.590625, 0.53125, 0.478125, 0.430625,
@@ -34,6 +37,9 @@ function App() {
     setSelectedTroop(Romans.find((t) => t.name === troopName));
     setShowCalc(false);
   };
+
+  const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [cavalry, setCavalry] = useState("");
   const [selectedCavalry, setSelectedCavalry] = useState(null);
@@ -81,7 +87,7 @@ function App() {
 
   const HeaderCells = () => (
     <>
-      <Grid item xs={10} />
+      {!isSmall && <Grid item md={10} />}
       <Grid item xs={2}>
         <img src={wood} alt="lumber resource" />
       </Grid>
@@ -95,7 +101,8 @@ function App() {
         <img src={crop} alt="crop resource" />
       </Grid>
       <Grid item xs={2}>
-        <Typography variant="body1">Time, s</Typography>
+        <img src={clock} alt="crop resource" width={15} />
+        {/* <Typography variant="body1">Time, s</Typography> */}
       </Grid>
     </>
   );
@@ -318,7 +325,6 @@ function App() {
         <Box
           sx={{
             width: "65vw",
-            height: "60vh",
             border: 1,
             borderColor: "grey.500",
             borderRadius: 5,
@@ -326,7 +332,12 @@ function App() {
           }}
         >
           <Box sx={{ flexGrow: 1, overflow: "auto", whiteSpace: "nowrap" }}>
-            <Grid container spacing={2} columns={20} width={"65vw"}>
+            <Grid
+              container
+              spacing={{ xs: 1, md: 2 }}
+              columns={{ xs: 10, md: 20 }}
+              width={"65vw"}
+            >
               <Grid item xs={20}>
                 <Box component="form" noValidate autoComplete="off">
                   <TextField
@@ -353,7 +364,7 @@ function App() {
 
               {/**********************************************************************************/}
 
-              <HeaderCells />
+              {!isSmall && <HeaderCells />}
 
               {/**********************************************************************************/}
 
@@ -363,6 +374,7 @@ function App() {
                 valueState={troop}
                 building={"barracks"}
               />
+              {isSmall && <HeaderCells />}
               <ResourceCells
                 selectedValueState={selectedTroop}
                 buildingLevel={barracksLevel}
@@ -373,6 +385,7 @@ function App() {
                 valueState={cavalry}
                 building={"stables"}
               />
+              {isSmall && <HeaderCells />}
               <ResourceCells
                 selectedValueState={selectedCavalry}
                 buildingLevel={stableLevel}
@@ -383,6 +396,7 @@ function App() {
                 valueState={siege}
                 building={"workshop"}
               />
+              {isSmall && <HeaderCells />}
               <ResourceCells
                 selectedValueState={selectedSiege}
                 buildingLevel={workshopLevel}
@@ -390,28 +404,31 @@ function App() {
 
               {/**********************************************************************************/}
 
-              <LabelCell label="Barracks Level" mt={3} />
+              <LabelCell label="Barracks Level" md={4} xs={5} mt={3} />
               <LevelSelectCell
-                xs={3}
+                xs={5}
+                md={3}
                 handleFn={handleBLChange}
                 levelState={barracksLevel}
               />
-              <LabelCell label="Stable Level" mt={3} xs={3} />
+              <LabelCell label="Stable Level" mt={3} xs={5} md={3} />
               <LevelSelectCell
-                xs={3}
+                xs={5}
+                md={3}
                 handleFn={handleSLChange}
                 levelState={stableLevel}
               />
-              <LabelCell label="Workshop Level" mt={3} />
+              <LabelCell label="Workshop Level" md={4} xs={5} mt={3} />
               <LevelSelectCell
-                xs={3}
+                xs={5}
+                md={3}
                 handleFn={handleWLChange}
                 levelState={workshopLevel}
               />
 
               {/**********************************************************************************/}
 
-              <LabelCell label="Reserve" mt={1.5} xs={2} />
+              <LabelCell label="Reserve" my={1.5} md={2} xs={10} />
               <Grid item xs={3}>
                 <TextField
                   id="standard-basic"
@@ -543,15 +560,6 @@ function App() {
           sx={{
             display: showCalc ? undefined : "none",
             width: "65vw",
-            height:
-              [selectedTroop, selectedCavalry, selectedSiege].filter(Boolean)
-                .length === 3
-                ? "31vh"
-                : [selectedTroop, selectedCavalry, selectedSiege].filter(
-                    Boolean
-                  ).length === 2
-                ? "26vh"
-                : "21vh",
             border: 1,
             borderColor: "grey.500",
             borderRadius: 5,
@@ -560,7 +568,12 @@ function App() {
           }}
         >
           <Box sx={{ flexGrow: 1, overflow: "auto", whiteSpace: "nowrap" }}>
-            <Grid container spacing={2} columns={20} width={"65vw"}>
+            <Grid
+              container
+              spacing={{ xs: 1, md: 2 }}
+              columns={{ xs: 10, md: 20 }}
+              width={"65vw"}
+            >
               <LabelCell label="Build plan" />
               <Grid
                 item
