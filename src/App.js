@@ -8,6 +8,8 @@ import {
   MenuItem,
   TextField,
   Button,
+  Switch,
+  FormControlLabel,
 } from "@mui/material";
 import { Calculate } from "@mui/icons-material";
 import { useTheme } from "@mui/material/styles";
@@ -37,6 +39,8 @@ function App() {
     setSelectedTroop(Romans.find((t) => t.name === troopName));
     setShowCalc(false);
   };
+
+  const [heroHelmet, setHeroHelmet] = useState(false);
 
   const theme = useTheme();
   const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
@@ -107,7 +111,7 @@ function App() {
     </>
   );
 
-  const ResourceCells = ({ selectedValueState, buildingLevel }) => (
+  const ResourceCells = ({ selectedValueState, buildingLevel, type }) => (
     <>
       <Grid item xs={2}>
         <Typography variant="body1">
@@ -133,7 +137,8 @@ function App() {
         <Typography variant="body1">
           {Math.ceil(
             TrainingLength[buildingLevel] *
-              (selectedValueState?.training_duration ?? 0)
+              (selectedValueState?.training_duration ?? 0) *
+              (type === "inf" && heroHelmet ? 0.9 : 1)
           )}
         </Typography>
       </Grid>
@@ -213,7 +218,8 @@ function App() {
         cost: selectedTroop?.cost?.total ?? Infinity,
         time: Math.ceil(
           TrainingLength[barracksLevel] *
-            (selectedTroop?.training_duration ?? 0)
+            (selectedTroop?.training_duration ?? 0) *
+            (heroHelmet ? 0.9 : 1)
         ),
         res: selectedTroop?.cost,
       },
@@ -338,7 +344,7 @@ function App() {
               columns={{ xs: 10, md: 20 }}
               width={"65vw"}
             >
-              <Grid item xs={20}>
+              <Grid item xs={10}>
                 <Box component="form" noValidate autoComplete="off">
                   <TextField
                     label="Total resources"
@@ -362,6 +368,21 @@ function App() {
                 </Box>
               </Grid>
 
+              <Grid item xs={10}>
+                <Box component="form" noValidate autoComplete="off">
+                  <FormControlLabel
+                    control={
+                      <Switch
+                        onChange={(event) =>
+                          setHeroHelmet(event.target.checked)
+                        }
+                      />
+                    }
+                    label="Hero mercenary helmet"
+                  />
+                </Box>
+              </Grid>
+
               {/**********************************************************************************/}
 
               {!isSmall && <HeaderCells />}
@@ -378,6 +399,7 @@ function App() {
               <ResourceCells
                 selectedValueState={selectedTroop}
                 buildingLevel={barracksLevel}
+                type="inf"
               />
               <LabelCell label="Stables" />
               <SelectionCell
@@ -389,6 +411,7 @@ function App() {
               <ResourceCells
                 selectedValueState={selectedCavalry}
                 buildingLevel={stableLevel}
+                type="cav"
               />
               <LabelCell label="Workshop" />
               <SelectionCell
@@ -400,6 +423,7 @@ function App() {
               <ResourceCells
                 selectedValueState={selectedSiege}
                 buildingLevel={workshopLevel}
+                type="siege"
               />
 
               {/**********************************************************************************/}
